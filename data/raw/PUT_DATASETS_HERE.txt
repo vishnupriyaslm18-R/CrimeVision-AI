@@ -1,0 +1,6 @@
+Place the three finalized source datasets here:
+1. crimes.csv
+2. violent_crime_incidence.csv
+3. crime_dataset_india.csv
+
+Do not rename their columns yet. We will inspect and preprocess them first.

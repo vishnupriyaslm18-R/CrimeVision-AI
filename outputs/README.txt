@@ -1,0 +1,1 @@
+Generated charts/reports can be stored here.
