@@ -75,240 +75,253 @@ CHART_COLORS = [
     "#0F766E"
 ]
 
+# =========================================================
+# THEME DETECTION
+# =========================================================
+
+try:
+    APP_THEME = st.context.theme.type
+except Exception:
+    APP_THEME = "light"
+
+if APP_THEME == "dark":
+    APP_BACKGROUND = "linear-gradient(135deg, #0b1220 0%, #111827 48%, #1e1b4b 100%)"
+    APP_TEXT = "#f8fafc"
+    APP_MUTED_TEXT = "#cbd5e1"
+    APP_INPUT_BG = "#1e293b"
+    APP_BORDER = "#475569"
+    APP_HEADING = "#f8fafc"
+else:
+    APP_BACKGROUND = "linear-gradient(135deg, #f8fbff 0%, #eef2ff 48%, #fff7ed 100%)"
+    APP_TEXT = "#172554"
+    APP_MUTED_TEXT = "#475569"
+    APP_INPUT_BG = "#ffffff"
+    APP_BORDER = "#cbd5e1"
+    APP_HEADING = "#172554"
+
+PLOTLY_TEMPLATE = "plotly_dark" if APP_THEME == "dark" else "plotly_white"
+
 
 # =========================================================
 # CUSTOM CSS
 # =========================================================
 
 st.markdown(
-    """
+    f"""
 <style>
 
-.stApp {
-    background:
-        linear-gradient(
-            135deg,
-            #f8fbff 0%,
-            #eef2ff 48%,
-            #fff7ed 100%
-        );
-}
+.stApp {{
+    background: {APP_BACKGROUND} !important;
+    color: {APP_TEXT} !important;
+}}
 
+[data-testid="stAppViewContainer"] {{
+    background: transparent !important;
+}}
+
+/* HEADINGS */
+
+h1, h2, h3, h4, h5, h6 {{
+    color: {APP_HEADING} !important;
+}}
+
+/* NORMAL TEXT */
+
+p, li, label {{
+    color: {APP_TEXT} !important;
+}}
+
+[data-testid="stMarkdownContainer"] {{
+    color: {APP_TEXT} !important;
+}}
+
+[data-testid="stCaptionContainer"] {{
+    color: {APP_MUTED_TEXT} !important;
+}}
 
 /* SIDEBAR */
 
-[data-testid="stSidebar"] {
+[data-testid="stSidebar"] {{
     background:
         linear-gradient(
             180deg,
             #0f172a 0%,
             #172554 45%,
             #4c1d95 100%
-        );
-}
+        ) !important;
+}}
 
-[data-testid="stSidebar"] * {
+[data-testid="stSidebar"] * {{
     color: white !important;
-}
-
-
-/* HEADINGS */
-
-h1 {
-    color: #172554 !important;
-    font-weight: 850 !important;
-}
-
-h2 {
-    color: #1e3a8a !important;
-    font-weight: 800 !important;
-}
-
-h3 {
-    color: #312e81 !important;
-    font-weight: 750 !important;
-}
-
+}}
 
 /* COLORFUL CARDS */
 
-.crime-cards {
+.crime-cards {{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 18px;
     width: 100%;
     margin-top: 18px;
     margin-bottom: 35px;
-}
+}}
 
-.crime-card {
+.crime-card {{
     min-height: 155px;
     padding: 22px 19px;
     border-radius: 22px;
     position: relative;
     overflow: hidden;
-    color: white;
+    color: white !important;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}}
 
-    box-shadow:
-        0 10px 28px rgba(15, 23, 42, 0.18);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.crime-card:hover {
+.crime-card:hover {{
     transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.28);
+}}
 
-    box-shadow:
-        0 20px 40px rgba(15, 23, 42, 0.28);
-}
+.crime-card-blue {{
+    background: linear-gradient(135deg, #1d4ed8, #2563eb, #38bdf8);
+}}
 
+.crime-card-purple {{
+    background: linear-gradient(135deg, #4c1d95, #7c3aed, #c084fc);
+}}
 
-.crime-card-blue {
-    background:
-        linear-gradient(
-            135deg,
-            #1d4ed8,
-            #2563eb,
-            #38bdf8
-        );
-}
+.crime-card-red {{
+    background: linear-gradient(135deg, #881337, #e11d48, #fb7185);
+}}
 
+.crime-card-orange {{
+    background: linear-gradient(135deg, #9a3412, #ea580c, #f59e0b);
+}}
 
-.crime-card-purple {
-    background:
-        linear-gradient(
-            135deg,
-            #4c1d95,
-            #7c3aed,
-            #c084fc
-        );
-}
+.crime-card-teal {{
+    background: linear-gradient(135deg, #115e59, #0891b2, #22d3ee);
+}}
 
+.crime-icon,
+.crime-title,
+.crime-number,
+.crime-description {{
+    color: white !important;
+}}
 
-.crime-card-red {
-    background:
-        linear-gradient(
-            135deg,
-            #881337,
-            #e11d48,
-            #fb7185
-        );
-}
-
-
-.crime-card-orange {
-    background:
-        linear-gradient(
-            135deg,
-            #9a3412,
-            #ea580c,
-            #f59e0b
-        );
-}
-
-
-.crime-card-teal {
-    background:
-        linear-gradient(
-            135deg,
-            #115e59,
-            #0891b2,
-            #22d3ee
-        );
-}
-
-
-.crime-icon {
+.crime-icon {{
     font-size: 30px;
     margin-bottom: 7px;
     position: relative;
     z-index: 2;
-}
+}}
 
-.crime-title {
+.crime-title {{
     font-size: 15px;
     font-weight: 750;
     position: relative;
     z-index: 2;
-}
+}}
 
-.crime-number {
+.crime-number {{
     font-size: 31px;
     font-weight: 900;
     line-height: 1.15;
     margin-top: 8px;
     position: relative;
     z-index: 2;
-}
+}}
 
-.crime-description {
+.crime-description {{
     font-size: 12px;
     margin-top: 9px;
     opacity: 0.90;
     position: relative;
     z-index: 2;
-}
+}}
 
-
-.crime-card::before {
+.crime-card::before {{
     content: "";
     position: absolute;
-
     width: 125px;
     height: 125px;
-
     right: -50px;
     top: -50px;
-
     border-radius: 50%;
-
     background: rgba(255,255,255,0.13);
-}
+}}
 
-.crime-card::after {
+.crime-card::after {{
     content: "";
     position: absolute;
-
     width: 95px;
     height: 95px;
-
     right: -30px;
     bottom: -40px;
-
     border-radius: 50%;
-
     background: rgba(255,255,255,0.10);
-}
+}}
 
+/* METRICS */
+
+[data-testid="stMetricLabel"],
+[data-testid="stMetricValue"],
+[data-testid="stMetricDelta"] {{
+    color: {APP_TEXT} !important;
+}}
+
+/* INPUTS */
+
+input, textarea {{
+    color: {APP_TEXT} !important;
+    background-color: {APP_INPUT_BG} !important;
+    border-color: {APP_BORDER} !important;
+}}
+
+[data-baseweb="select"] > div {{
+    background-color: {APP_INPUT_BG} !important;
+    border-color: {APP_BORDER} !important;
+}}
+
+[data-baseweb="select"] * {{
+    color: {APP_TEXT} !important;
+}}
+
+/* RADIO / CHECKBOX */
+
+[data-testid="stRadio"] label,
+[data-testid="stCheckbox"] label {{
+    color: {APP_TEXT} !important;
+}}
 
 /* BUTTONS */
 
-.stButton > button {
+.stButton > button {{
     border-radius: 12px !important;
     min-height: 45px !important;
     font-weight: 750 !important;
-}
+}}
 
+/* ALERTS */
+
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] {{
+    color: {APP_TEXT} !important;
+}}
 
 /* RESPONSIVE */
 
-@media (max-width: 1200px) {
-
-    .crime-cards {
+@media (max-width: 1200px) {{
+    .crime-cards {{
         grid-template-columns: repeat(3, 1fr);
-    }
+    }}
+}}
 
-}
-
-@media (max-width: 750px) {
-
-    .crime-cards {
+@media (max-width: 750px) {{
+    .crime-cards {{
         grid-template-columns: repeat(2, 1fr);
-    }
-
-}
+    }}
+}}
 
 </style>
 """,
@@ -520,7 +533,7 @@ Historical coverage
 
     fig.update_layout(
         height=450,
-        template="plotly_white",
+        template=PLOTLY_TEMPLATE,
         hovermode="x unified"
     )
 
@@ -598,7 +611,7 @@ Historical coverage
 
         fig.update_layout(
             height=500,
-            template="plotly_white"
+            template=PLOTLY_TEMPLATE
         )
 
         st.plotly_chart(
@@ -631,7 +644,7 @@ Historical coverage
 
         fig.update_layout(
             height=500,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             coloraxis_showscale=False
         )
 
@@ -669,7 +682,7 @@ Historical coverage
 
     fig.update_layout(
         height=500,
-        template="plotly_white",
+        template=PLOTLY_TEMPLATE,
         coloraxis_showscale=False
     )
 
@@ -1031,7 +1044,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=500,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             coloraxis_showscale=False
         )
 
@@ -1143,7 +1156,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=450,
-            template="plotly_white"
+            template=PLOTLY_TEMPLATE
         )
 
 
@@ -1165,7 +1178,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=450,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             coloraxis_showscale=False
         )
 
@@ -1263,7 +1276,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=600,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             coloraxis_showscale=False
         )
 
@@ -1322,7 +1335,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=550,
-            template="plotly_white"
+            template=PLOTLY_TEMPLATE
         )
 
 
@@ -1419,7 +1432,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=600,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             coloraxis_showscale=False
         )
 
@@ -1520,7 +1533,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=650,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             coloraxis_showscale=False
         )
 
@@ -1552,7 +1565,7 @@ elif page == "📊 Crime Analysis":
 
         fig.update_layout(
             height=600,
-            template="plotly_white"
+            template=PLOTLY_TEMPLATE
         )
 
 
@@ -1791,7 +1804,7 @@ elif page == "🔮 Future Prediction":
 
         fig.update_layout(
             height=500,
-            template="plotly_white",
+            template=PLOTLY_TEMPLATE,
             hovermode="x unified"
         )
 
