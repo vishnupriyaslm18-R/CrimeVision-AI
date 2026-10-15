@@ -323,6 +323,7 @@ input, textarea {{
     }}
 }}
 
+
 /* Hide Streamlit's bottom decoration and footer */
 [data-testid="stStatusWidget"],
 [data-testid="stDecoration"],
