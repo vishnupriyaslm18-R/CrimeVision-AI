@@ -323,20 +323,6 @@ input, textarea {{
     }}
 }}
 
-
-/* Hide Streamlit's bottom decoration and footer */
-[data-testid="stStatusWidget"],
-[data-testid="stDecoration"],
-footer {{
-    display: none !important;
-}}
-
-/* Hide the GitHub/Fork toolbar controls if supported */
-[data-testid="stToolbar"] {{
-    visibility: hidden !important;
-}}
-
-
 </style>
 """,
     unsafe_allow_html=True
