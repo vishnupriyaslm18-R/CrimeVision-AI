@@ -49,7 +49,45 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+# =========================================================
+# HIDE STREAMLIT DEFAULT BRANDING AND CONTROLS
+# =========================================================
 
+st.markdown("""
+<style>
+[data-testid="stHeader"] {
+    display: flex !important;
+}
+
+[data-testid="stSidebar"] {
+    display: block !important;
+    visibility: visible !important;
+}
+
+[data-testid="stSidebarCollapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+}
+/* Hide the default footer */
+footer {
+    display: none !important;
+}
+
+}
+
+/* Hide the status widget */
+[data-testid="stStatusWidget"] {
+    display: none !important;
+}
+
+/* Hide the deploy button */
+[data-testid="stAppDeployButton"] {
+    display: none !important;
+}
+
+
+</style>
+""", unsafe_allow_html=True)
 
 # =========================================================
 # DATABASE
